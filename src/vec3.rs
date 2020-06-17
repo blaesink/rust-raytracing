@@ -61,6 +61,19 @@ impl ops::Sub<Vec3> for Vec3 {
     }
 }
 
+// this or dereference?
+impl ops::Sub<&Vec3> for Vec3 {
+    type Output = Vec3;
+
+    fn sub(self, _rhs: &Vec3) -> Vec3 {
+        Vec3 {
+            x: self.x - _rhs.x,
+            y: self.y - _rhs.y,
+            z: self.z - _rhs.z,
+        }
+    }
+}
+
 impl ops::Mul<Vec3> for Vec3 {
     type Output = Vec3;
 
@@ -109,11 +122,11 @@ impl ops::Div<f32> for Vec3 {
     }
 }
 
-fn dot(u: &Vec3, v: &Vec3) -> f32 {
+pub fn dot(u: &Vec3, v: &Vec3) -> f32 {
     (u.x * v.x) + (u.y * v.y) + (u.z * v.z)
 }
 
-fn cross(u: &Vec3, v: &Vec3) -> Vec3 {
+pub fn cross(u: &Vec3, v: &Vec3) -> Vec3 {
     Vec3 {
         x: u.y * v.z - u.z - v.y,
         y: u.z * v.x - u.x - v.z,

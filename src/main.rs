@@ -4,20 +4,19 @@ use ray::Ray;
 use vec3::{Color, Point3,Vec3};
 
 fn hit_sphere(center: &Point3, radius: f32, r: &Ray) -> bool {
-    let oc: Vec3 = r.origin() - center;;
-    let a = vec3::dot(&r.direction(), r.direction());
-    let b = 2.0 * vec3::dot(&oc, r.direction());
-    let c = vec3::dot(oc, &oc) - radius * radius;
-    let discriminant = b*b - 4 as f32*a*c;
+    let oc = r.origin() - center;
+    let a = vec3::dot(&r.direction(), &r.direction());
+    let b = 2.0 * vec3::dot(&oc, &r.direction());
+    let c = vec3::dot(&oc, &oc) - (&radius * &radius);
+    let discrim = (b*b) - ((4 as f32) * a * c);
 
-    match discriminant {
-        discriminant > 0: return true,
-        direction < 0: return false
-    }
-
+    discrim > 0.0
 }
 
 fn ray_color(r: &Ray) -> Color {
+    if hit_sphere(&Point3::new(0.0,0.0,-1.0),0.5,&r) {
+        return Color::new(1.0,0.0,0.0);
+    }
     let unit_direction: Vec3 = vec3::unit_vector(&r.direction());
     let t = 0.5 * (unit_direction.y() + 1.0);
 
@@ -57,12 +56,6 @@ fn main() {
             let r: Ray = Ray::new(&lower_left_corner,
                     &(u * horizontal + v * vertical - origin));
 
-            /*
-            let pixel_color: Color = Color::new(
-                (i as f32) / ((WIDTH - 1) as f32),
-                (j as f32) / ((HEIGHT - 1) as f32),
-                0.25);
-            */
             let pixel_color = ray_color(&r);
 
             write_color(pixel_color);
