@@ -6,16 +6,16 @@ use vec3::{Color, Point3,Vec3};
 fn hit_sphere(center: Point3, radius: f32, r: &Ray) -> f32 {
     use vec3::dot;
     let oc: Point3 = r.origin() - &center;
-    let a: f32 = dot(&r.direction(), &r.direction());
-    let b: f32 = 2.0 * dot(&oc,&r.direction());
-    let c: f32 = dot(&oc, &oc) - radius * radius;
+    let a: f32 = r.direction().length_squared();
+    let half_b: f32 = dot(&oc, &r.direction());
+    let c: f32 = oc.length_squared() - radius * radius;
 
-    let discriminant: f32 = (b * b) - ((4 as f32) * a * c);
+    let discriminant: f32 = half_b * half_b - a * c;
 
     if discriminant < 0.0 {
         return -1.0;
     } else {
-        return ((-1.0 * b) - discriminant.sqrt()) / (2.0 * a);
+        return ((-1.0 * half_b) - discriminant.sqrt()) / a;
     }
 }
 
