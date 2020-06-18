@@ -1,5 +1,8 @@
 mod vec3;
 mod ray;
+mod hittable;
+mod sphere;
+
 use ray::Ray;
 use vec3::{Color, Point3,Vec3};
 
