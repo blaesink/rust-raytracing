@@ -1,6 +1,6 @@
 use crate::vec3::{Vec3,Point3,dot};
 use crate::ray::Ray;
-use std::rc::Rc;
+//use std::rc::Rc;
 
 #[derive(Default,Clone,Copy)]
 pub struct HitRecord {
@@ -21,27 +21,24 @@ impl HitRecord {
     }
 }
 
-
-// originally tried to use a generic trait, but it wouldn't find anything
-
 pub trait Hittable {
     fn hit(&self, r: &Ray, t_min: f64, t_max: f64, rec: &mut HitRecord) -> bool{
         false
     }
 }
 
-#[derive(Default)]
+#[derive(Default,Debug)]
 pub struct HittableList<T> {
-    objects: Vec::<Rc::<T>>
+    objects: Vec::<T>
 }
 
 impl<T> HittableList<T> {
-    pub fn new(o: Vec::<Rc::<T>>) -> Self{
+    pub fn new(o: Vec::<T>) -> Self {
         Self {
             objects: o
         }
     }
-    pub fn add(&mut self, o: Rc::<T>) {
+    pub fn add(&mut self, o: T) {
         self.objects.push(o);
     }
 }

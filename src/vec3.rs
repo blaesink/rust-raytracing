@@ -2,13 +2,13 @@ use std::ops;
 
 #[derive(Default,Debug,Copy,Clone)]
 pub struct Vec3 {
-    pub x: f32,
-    pub y: f32,
-    pub z: f32,
+    pub x: f64,
+    pub y: f64,
+    pub z: f64,
 }
 
 impl Vec3 {
-    pub fn new(_x: f32, _y: f32, _z: f32) -> Self {
+    pub fn new(_x: f64, _y: f64, _z: f64) -> Self {
         Vec3 {
             x: _x,
             y: _y,
@@ -16,23 +16,23 @@ impl Vec3 {
         }
     }
 
-    pub fn length(&self) -> f32 {
-        (self.length_squared() as f32).sqrt()
+    pub fn length(&self) -> f64 {
+        (self.length_squared() as f64).sqrt()
     }
 
-    pub fn length_squared(&self) -> f32 {
+    pub fn length_squared(&self) -> f64 {
         (self.x * self.x) + (self.y * self.y) + (self.z * self.z)
     }
 
-    pub fn x(&self) -> f32 {
+    pub fn x(&self) -> f64 {
         self.x
     }
 
-    pub fn y(&self) -> f32 {
+    pub fn y(&self) -> f64 {
         self.y
     }
 
-    pub fn z(&self) -> f32 {
+    pub fn z(&self) -> f64 {
         self.z
     }
 }
@@ -86,7 +86,7 @@ impl ops::Mul<Vec3> for Vec3 {
     }
 }
 
-impl ops::Mul<Vec3> for f32 {
+impl ops::Mul<Vec3> for f64 {
     type Output = Vec3;
 
     fn mul(self, _rhs: Vec3) -> Vec3 {
@@ -110,10 +110,10 @@ impl ops::Div<Vec3> for Vec3 {
     }
 }
 
-impl ops::Div<f32> for Vec3 {
+impl ops::Div<f64> for Vec3 {
     type Output = Vec3;
 
-    fn div(self, _rhs: f32) -> Vec3 {
+    fn div(self, _rhs: f64) -> Vec3 {
         Vec3 {
             x: self.x / _rhs,
             y: self.y / _rhs,
@@ -122,7 +122,7 @@ impl ops::Div<f32> for Vec3 {
     }
 }
 
-pub fn dot(u: &Vec3, v: &Vec3) -> f32 {
+pub fn dot(u: &Vec3, v: &Vec3) -> f64 {
     (u.x * v.x) + (u.y * v.y) + (u.z * v.z)
 }
 
@@ -134,10 +134,10 @@ pub fn cross(u: &Vec3, v: &Vec3) -> Vec3 {
     }
 }
 
-impl ops::Div<f32> for &Vec3 {
+impl ops::Div<f64> for &Vec3 {
     type Output = Vec3;
 
-    fn div(self, _rhs: f32) -> Vec3 {
+    fn div(self, _rhs: f64) -> Vec3 {
         Vec3 {
             x: self.x / _rhs,
             y: self.y / _rhs,
